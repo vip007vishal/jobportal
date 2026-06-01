@@ -19,7 +19,7 @@ if (!empty($jobs)) {
 <?php
 $role = $userRole ?? session()->get('user_role');
 $isAdmin = ($role === 'admin');
-$hasAccess = $isAdmin || ($canViewGlobal == 1) || ($canViewOwn == 1);
+$hasAccess = $isAdmin || ($canViewGlobal == 't') || ($canViewOwn == 't');
 ?>
 
 <?php if ($hasAccess): ?>
@@ -131,7 +131,7 @@ $hasAccess = $isAdmin || ($canViewGlobal == 1) || ($canViewOwn == 1);
                                 <a target="_blank" href="<?= base_url('uploads/resumes/' . $application['resume']) ?>" class="action-link">View</a>
                             </td>
                             <td>
-                                <?php if ($canUpdateStatus == 1): ?>
+                                <?php if ($canUpdateStatus == 't'): ?>
                                     <form class="statusForm inline-form" data-id="<?= $application['id'] ?>">
                                         <select name="status">
                                             <option value="Applied">Applied</option>

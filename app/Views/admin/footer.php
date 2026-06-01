@@ -1,11 +1,11 @@
 </div> <!-- /.dashboard-wrapper -->
 
 <!-- LOGS MODAL -->
-<div id="logsModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999;">
-    <div style="background:white; width:700px; max-width:95%; margin:50px auto; padding:20px; border-radius:8px;">
+<div id="logsModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; overflow-y:auto; padding:30px 0;">
+    <div style="background:white; width:700px; max-width:95%; max-height:85vh; margin:0 auto; padding:20px; border-radius:8px; display:flex; flex-direction:column;">
         <h3>Application Logs</h3>
-        <div id="logsContainer"></div>
-        <button onclick="$('#logsModal').hide()" class="btn" style="margin-top:15px;">Close</button>
+        <div id="logsContainer" style="overflow-y:auto; max-height:65vh; padding-right:6px;"></div>
+        <button onclick="$('#logsModal').hide()" class="btn" style="margin-top:15px; align-self:flex-start;">Close</button>
     </div>
 </div>
 

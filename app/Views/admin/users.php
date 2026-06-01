@@ -110,6 +110,54 @@ include 'header.php';
         transform: scale(1.1);
         transition: all 0.2s;
     }
+
+    .toast-notification {
+        background: white;
+        border-radius: 8px;
+        padding: 16px 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 300px;
+        pointer-events: auto;
+        transform: translateX(400px);
+        opacity: 0;
+        transition: all 0.3s ease;
+        border-left: 4px solid #4f46e5;
+    }
+
+    .toast-notification.show {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    .toast-notification.success {
+        border-left-color: #0f766e;
+    }
+
+    .toast-notification.success .toast-icon {
+        color: #0f766e;
+    }
+
+    .toast-notification.error {
+        border-left-color: #b91c1c;
+    }
+
+    .toast-notification.error .toast-icon {
+        color: #b91c1c;
+    }
+
+    .toast-icon {
+        font-weight: bold;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+    }
+
+    .toast-message {
+        color: #1e293b;
+        font-size: 0.95rem;
+    }
 </style>
 
 <!-- Settings Modal -->
@@ -145,7 +193,7 @@ include 'header.php';
     <div class="column-left">
         <div class="section-card" style="margin-bottom:0px;">
             <h2>Add HR / TL User</h2>
-            <form action="<?= base_url('admin/create-user') ?>" method="POST" style="display:flex; flex-direction:column; gap:12px;">
+            <form id="createUserForm" style="display:flex; flex-direction:column; gap:12px;">
                 <input type="text" name="name" placeholder="Full Name" required>
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Password" required>
@@ -185,7 +233,7 @@ include 'header.php';
                                         <td>
                                             <form action="<?= base_url('admin/update-access/' . $user['id']) ?>" method="post">
                                                 <button class="btn" type="submit">
-                                                    <?= $user['access'] ? 'Revoke Access' : 'Grant Access' ?>
+                                                    <?= $user['access'] === 't' ? 'Revoke Access' : 'Grant Access' ?>
                                                 </button>
                                             </form>
                                         </td>
@@ -221,9 +269,9 @@ include 'header.php';
 
         function openSettings(button) {
             var userId = button.getAttribute('data-id');
-            var viewOwn = button.getAttribute('data-view-own') === '1';
-            var viewGlobal = button.getAttribute('data-view-global') === '1';
-            var updateStatus = button.getAttribute('data-update-status') === '1';
+            var viewOwn = button.getAttribute('data-view-own') === 't';
+            var viewGlobal = button.getAttribute('data-view-global') === 't';
+            var updateStatus = button.getAttribute('data-update-status') === 't';
 
             document.getElementById('settingsUserId').value = userId;
             document.getElementById('viewOwn').checked = viewOwn;
@@ -248,7 +296,82 @@ include 'header.php';
                 openSettings(this);
             });
         });
+
+        // Handle create user form submission
+        const createUserForm = document.getElementById('createUserForm');
+        if (createUserForm) {
+            createUserForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(this);
+
+                try {
+                    const response = await fetch('<?= base_url('admin/create-user') ?>', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    });
+
+                    const data = await response.json();
+
+                    // Show toast notification
+                    showToast(data.message, data.success ? 'success' : 'error');
+
+                    if (data.success) {
+                        createUserForm.reset();
+                        // Reload the users table after a short delay
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1500);
+                    }
+                } catch (error) {
+                    showToast('An error occurred', 'error');
+                    console.error('Error:', error);
+                }
+            });
+        }
+
+        function showToast(message, type) {
+            const toastContainer = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast-notification ${type}`;
+            toast.innerHTML = `
+                <div class="toast-content">
+                    <span class="toast-icon">${type === 'success' ? '✓' : '✕'}</span>
+                    <span class="toast-message">${message}</span>
+                </div>
+            `;
+
+            toastContainer.appendChild(toast);
+
+            // Animate in
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3000);
+        }
     });
 </script>
+
+<!-- Toast Notification Container -->
+<div id="toastContainer" style="
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+"></div>
 
 <?php include 'footer.php'; ?>

@@ -582,7 +582,6 @@
 
 <body>
 
-    <!-- Hero -->
     <div class="hero">
         <h1>Welcome to <span>V7 Lancers</span></h1>
         <p>Your trusted recruitment management portal. Apply to top openings, track your status, and let opportunities find you.</p>
@@ -592,7 +591,6 @@
         </div>
     </div>
 
-    <!-- Features -->
     <div class="features-row">
         <div class="feature-card">
             <h3>Quick Apply</h3>

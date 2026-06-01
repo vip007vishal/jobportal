@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\JobModel;
 use App\Models\ApplicationModel;
+use App\Models\ApplicationLogModel;
 use App\Models\SkillModel;
 
 class Home extends BaseController
@@ -33,11 +34,6 @@ class Home extends BaseController
     {
         $applicationModel = new ApplicationModel();
 
-        /*
-|--------------------------------------------------------------------------
-| DUPLICATE EMAIL CHECK
-|--------------------------------------------------------------------------
-*/
 
         $emailExists = $applicationModel
 
@@ -181,7 +177,7 @@ class Home extends BaseController
 
         $applicationId = $applicationModel->getInsertID();
 
-        $logModel = new \App\Models\ApplicationLogModel();
+        $logModel = new ApplicationLogModel();
 
         $logModel->save([
             'application_id' => $applicationId,

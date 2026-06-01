@@ -157,7 +157,7 @@ $routes->get(
 */
 
 $routes->get(
-    'admin/users',
+    'admin/users-data',
     'Admin::users'
 );
 
@@ -166,10 +166,6 @@ $routes->post(
     'Admin::createUser'
 );
 
-$routes->post(
-    'admin/update-user-status/(:num)',
-    'Admin::updateUserStatus/$1'
-);
 
 /*
 |--------------------------------------------------------------------------
@@ -180,44 +176,6 @@ $routes->post(
 $routes->get(
     'admin/applicant/(:num)',
     'Admin::applicantDetails/$1'
-);
-
-/*
-|--------------------------------------------------------------------------
-| TECHNICAL REVIEW
-|--------------------------------------------------------------------------
-*/
-
-$routes->post(
-    'admin/technical-review/(:num)',
-    'Admin::technicalReview/$1'
-);
-
-/*
-|--------------------------------------------------------------------------
-| INTERVIEW
-|--------------------------------------------------------------------------
-*/
-
-$routes->post(
-    'admin/schedule-interview/(:num)',
-    'Admin::scheduleInterview/$1'
-);
-
-/*
-|--------------------------------------------------------------------------
-| TIMELINE
-|--------------------------------------------------------------------------
-*/
-
-$routes->get(
-    'admin/application-timeline/(:num)',
-    'Admin::applicationTimeline/$1'
-);
-
-$routes->post(
-    'admin/add-role',
-    'Admin::addRole'
 );
 
 $routes->post(

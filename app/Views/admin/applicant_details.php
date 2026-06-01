@@ -654,30 +654,38 @@
                 <div class="info-row">
                     <span class="label">Email</span>
                     <span class="value">
-                        <a href="mailto:<?= esc($application['email']) ?>" style="color:var(--primary);text-decoration:none;font-weight:600;">
-                            <?= esc($application['email']) ?>
-                        </a>
+                        <?php if (!empty($application['email'])): ?>
+                            <a href="mailto:<?= esc($application['email']) ?>" style="color:var(--primary);text-decoration:none;font-weight:600;">
+                                <?= esc($application['email']) ?>
+                            </a>
+                        <?php else: ?>
+                            <span class="text-muted">Hidden</span>
+                        <?php endif; ?>
                     </span>
                 </div>
                 <div class="info-row">
                     <span class="label">Mobile</span>
                     <span class="value">
-                        <a href="tel:<?= esc($application['mobile']) ?>" style="color:var(--gray-800);text-decoration:none;">
-                            <?= esc($application['mobile']) ?>
-                        </a>
+                        <?php if (!empty($application['mobile'])): ?>
+                            <a href="tel:<?= esc($application['mobile']) ?>" style="color:var(--gray-800);text-decoration:none;">
+                                <?= esc($application['mobile']) ?>
+                            </a>
+                        <?php else: ?>
+                            <span class="text-muted">-</span>
+                        <?php endif; ?>
                     </span>
                 </div>
                 <div class="info-row">
                     <span class="label">Date of Birth</span>
-                    <span class="value"><?= esc($application['dob']) ?></span>
+                    <span class="value"><?= esc($application['dob'] ?? 'Hidden') ?></span>
                 </div>
                 <div class="info-row">
                     <span class="label">Gender</span>
-                    <span class="value"><?= esc($application['gender']) ?></span>
+                    <span class="value"><?= esc($application['gender'] ?? 'Unknown') ?></span>
                 </div>
                 <div class="info-row">
                     <span class="label">Nationality</span>
-                    <span class="value"><?= esc($application['nationality']) ?></span>
+                    <span class="value"><?= esc($application['nationality'] ?? 'Hidden') ?></span>
                 </div>
                 <div class="info-row">
                     <span class="label">Relocate</span>
@@ -687,13 +695,13 @@
                         <?php elseif (strtolower($application['relocate'] ?? '') === 'no'): ?>
                             <span style="color:var(--error);font-weight:700;">&#10007; No</span>
                         <?php else: ?>
-                            <?= esc($application['relocate']) ?>
+                            <?= esc($application['relocate'] ?? '-') ?>
                         <?php endif; ?>
                     </span>
                 </div>
                 <div class="info-row">
                     <span class="label">Address</span>
-                    <span class="value"><?= nl2br(esc($application['address'])) ?></span>
+                    <span class="value"><?= !empty($application['address']) ? nl2br(esc($application['address'])) : 'Hidden' ?></span>
                 </div>
             </div>
 

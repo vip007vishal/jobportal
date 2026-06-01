@@ -22,14 +22,7 @@ $isDashboard = str_contains($currentUrl, 'admin/dashboard');
         ">
             V7 Lancers
         </h2>
-        <!--<small style="
-            color: #94a3b8; font-size: 12px; letter-spacing: 0.5px;
-            text-transform: uppercase; font-weight: 500;
-            background: rgba(255,255,255,0.05); padding: 4px 10px;
-            border-radius: 20px; border: 1px solid rgba(255,255,255,0.08);
-        ">
-            Recruitment Portal
-        </small>-->
+
     </div>
 
     <!-- MOBILE MENU TOGGLE -->

@@ -452,22 +452,22 @@
 
 <body>
 
-<?php include 'navbar.php'; ?>
+    <?php include 'navbar.php'; ?>
 
-<?php
-$role = session()->get('role') ?? 'admin';
-$isAdmin = ($role === 'admin');
-?>
+    <?php
+    $role = session()->get('role') ?? 'admin';
+    $isAdmin = ($role === 'admin');
+    ?>
 
-<div class="dashboard-wrapper">
+    <div class="dashboard-wrapper">
 
-    <div class="top-header">
-        <div class="brand">
-            <h1><?= $pageTitle ?? 'Admin Dashboard' ?></h1>
+        <div class="top-header">
+            <div class="brand">
+                <h1><?= $pageTitle ?? 'Admin Dashboard' ?></h1>
+            </div>
         </div>
-    </div>
 
-    <!-- Flash messages -->
+        <!-- Flash messages -->
         <?php if (session()->getFlashdata('success')): ?>
             <div style="background-color: var(--success-bg); border-left: 4px solid var(--success); padding: 12px; margin-bottom: 20px; border-radius: var(--radius);">
                 <p style="color: var(--success); margin: 0;"><?= session()->getFlashdata('success') ?></p>
